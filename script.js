@@ -121,13 +121,13 @@ console.log(myStr2); // 0.3
 
 // setTimeout( printSomething, 2000 )
 
-setTimeout( () => {
-  console.log("ejecutandose! en 2 seg")
-}, 2000 )
+// setTimeout( () => {
+//   console.log("ejecutandose! en 2 seg")
+// }, 2000 )
 
-setTimeout( () => {
-  console.log("a los 0 segundos")
-}, 0 )
+// setTimeout( () => {
+//   console.log("a los 0 segundos")
+// }, 0 )
 
 // setTimeout( () => {
 //   console.log("este será despues")
@@ -157,14 +157,154 @@ console.log("esto está despues del timeout")
 // }, 5000 )
 
 
-let counter = 0;
+// let counter = 0;
 
-let id = setInterval( () => {
-  counter = counter + 1
-  console.log("intervalo más rapido", counter)
-  if (counter > 100) {
-    clearInterval(id)
+// let id = setInterval( () => {
+//   counter = counter + 1
+//   console.log("intervalo más rapido", counter)
+//   if (counter > 100) {
+//     clearInterval(id)
+//   }
+// }, 100 )
+
+
+function blast() {
+
+  let timer = 0;
+
+  let timerId = setInterval(() => {
+    timer = timer + 1;
+
+    if (timer % 3 === 0 && timer % 5 === 0) {
+      console.log("BOOM BANG!!")
+    } else if (timer % 5 === 0) {
+      console.log("BANG!")
+    } else if (timer % 3 === 0) {
+      console.log("BOOOM!")
+    } else {
+      console.log(timer)
+    }
+
+    if (timer >= 15) {
+      clearInterval(timerId)
+    }
+
+  }, 1000)
+
+}
+
+// blast()
+
+
+// METODOS EN OBJETOS
+
+
+let person = {
+  name: "Alicia",
+  place: "Pais de las Maravillas",
+  friends: ["Sombrerero", "Gato Chesire", "Liebre de Marzo", "Conejo Blanco", "Humpty Dumpty"],
+  sayHello() {
+    // console.log(this)
+    // return `Hola, soy Alicia`
+    // return `Hola, soy ${person.name}`
+    return `Hola, soy ${this.name} de ${this.place}`;
+    // this
+    // la palabra this, usada en objetos, apunta al objeto dueño de esa propieda o metodo
+  },
+  currentSize() {
+    let random = Math.random() * 2
+    let randomEnd = Math.floor(random) // 0 1
+    if (randomEnd === 1) {
+      return `${this.name} es grande!`
+    } else {
+      return `${this.name} es chica!`
+    }
+    // de manera totalmente aleatoria,
+    // 50% return "Alice es grande"
+    // 50% return "Alice es chica"
+  },
+  wishMerryUnbirthday() {
+    // buscar un elemento aleatorio del array de friends
+    // return `feliz no cumpleaños a: _____`
+    let friendQty = this.friends.length
+    let randomNum = Math.random() * friendQty;
+    let randomInt = Math.floor(randomNum)
+    return `Feliz Feliz no cumpleaños a ${this.friends[randomInt]}`
   }
-}, 100 )
+}
+
+console.log(person.friends[1])
+
+console.log( person.sayHello() )
+person.name = "Alice";
+// console.log( person )
+console.log( person.sayHello() )
+
+console.log( person.currentSize() )
+
+console.log( person.wishMerryUnbirthday() )
 
 
+
+
+// OOP
+
+
+let strBasic = "Hola";
+console.log(strBasic)
+
+let strBasic3 = String("Hola")
+console.log(strBasic3)
+
+// String
+// Boolean
+// Number
+
+let strBasic2 = new String("Hola")
+console.log(strBasic2)
+
+String.prototype.askHelpFromTA = function() {
+  return "llamando a Carolina o a Iñigo"
+}
+
+let newStr = "adios";
+console.log( newStr.askHelpFromTA() )
+
+
+
+
+// CLASES
+
+
+class Hero {
+
+  constructor(nameParam, secretIdentityParam) {
+    // propiedades
+    // this.name = "Iron Man"; // el nombre siempre será igual
+    this.name = nameParam;
+    this.secretIdentity = secretIdentityParam,
+    this.isEvil = false;
+  }
+
+  // metodos
+  revealSecret = () => {
+    return `Mi identidad secreta es: ${this.secretIdentity}`
+  }
+
+  turnEvil = () => {
+    this.isEvil = true;
+    return `${this.name} se ha vuelto malvad@! MUAHAHAHAH`
+  }
+
+}
+
+let hero1 = new Hero("Iron Man", "Tony Stark")
+console.log(hero1)
+console.log(hero1.revealSecret())
+
+let hero2 = new Hero("Black Widow", "Natasha Romanof")
+console.log(hero2)
+console.log(hero2.revealSecret())
+
+console.log(hero2.turnEvil())
+console.log("despues del turnEvil", hero2)
