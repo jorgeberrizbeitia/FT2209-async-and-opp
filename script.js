@@ -308,3 +308,29 @@ console.log(hero2.revealSecret())
 
 console.log(hero2.turnEvil())
 console.log("despues del turnEvil", hero2)
+
+
+
+// SUBCLASE
+
+class SuperHero extends Hero {
+
+  constructor(nameParam, secretIdentityParam, superPowerParam) {
+    super(nameParam, secretIdentityParam) // pasar los parametros que necesita el padre para asignar las propiedades
+    // los parametros se heradan con super()
+    this.superPower = superPowerParam
+  }
+
+  // los metodos se heredan automaticamente.
+  useSuperPower(target) {
+    return `${this.name} usa el superpoder ${this.superPower} con ${target.name}`
+  }
+
+}
+
+let superHero1 = new SuperHero("Spiderman", "Peter Parker", "Sentido Aracnido")
+console.log(superHero1)
+console.log(superHero1.revealSecret())
+// console.log(superHero1.useSuperPower())
+
+console.log(superHero1.useSuperPower( hero1 ))
